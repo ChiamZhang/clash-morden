@@ -70,10 +70,7 @@ class DelayManager {
     this.cache.set(key, [Date.now(), delay]);
     this.listenerMap.get(key)?.(delay);
     this.groupListenerMap.get(group)?.forEach((listener) => void listener());
-    this.groupVersionMap.set(
-      group,
-      (this.groupVersionMap.get(group) ?? 0) + 1,
-    );
+    this.groupVersionMap.set(group, (this.groupVersionMap.get(group) ?? 0) + 1);
   }
 
   getDelay(name: string, group: string) {
@@ -191,9 +188,9 @@ class DelayManager {
 
   formatDelay(delay: number, timeout = DEFAULT_LATENCY_TIMEOUT) {
     if (delay < 0) return "Error";
-    if (delay === 0) return "Timeout";
+    if (delay === 0) return "TMO";
     if (delay > 1e5) return "Error";
-    if (delay >= timeout) return "Timeout"; // 5s
+    if (delay > 999 || delay >= timeout) return "TMO";
     return `${delay}`;
   }
 

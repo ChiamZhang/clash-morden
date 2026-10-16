@@ -14,14 +14,13 @@ export const useRulesStats = () => {
 
   useEffect(() => {
     if (rules.length === 0) {
-      void fetchRules();
+      void fetchRules().catch(() => {});
     }
-     
   }, []);
 
   useEffect(() => {
     if (!pageVisible) return;
-    const timer = setInterval(() => void fetchRules(), 60_000);
+    const timer = setInterval(() => void fetchRules().catch(() => {}), 60_000);
     return () => clearInterval(timer);
   }, [pageVisible, fetchRules]);
 

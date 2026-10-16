@@ -19,6 +19,7 @@ import {
 } from "@/stores";
 import { useInterfaceStyleStore } from "@/stores/interfaceStyleStore";
 import type { ThemeMode } from "@/stores/themeStore";
+import { OS } from "@/utils/get-system";
 
 import { getInterfacePalette } from "./interface-palette";
 
@@ -118,6 +119,7 @@ export const useCustomTheme = () => {
     (state) => state.preview ?? state.appearance,
   );
   useEffect(() => {
+    document.documentElement.dataset.platform = OS;
     document.documentElement.dataset.interfaceStyle = appearance.style;
     document.documentElement.dataset.interfaceCompact = String(
       appearance.compact,

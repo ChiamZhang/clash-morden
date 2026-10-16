@@ -93,7 +93,7 @@ const Layout = () => {
     const unlistenRefreshClash = listen("verge://refresh-clash-config", () => {
       // the clash info may be updated
       refreshClashSWR();
-      fetchRules();
+      void fetchRules().catch(() => {});
     });
 
     // update the verge config

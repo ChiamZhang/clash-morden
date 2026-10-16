@@ -655,6 +655,32 @@ html[data-interface-style="glass3"] .MuiPaper-root {
   background-color: color-mix(in srgb, var(--ui-paper) 28%, transparent);
 }
 
+/* WebView2 repaints backdrop filters synchronously while switching the
+   custom Overview and Kernel pages. Keep the glass surfaces translucent on
+   Windows, but avoid the expensive blur pass and large shadow kernel. */
+html[data-platform="windows"][data-interface-style="glass"]
+  :is(
+    .interface-card,
+    .MuiCard-root,
+    .MuiDialog-paper,
+    .MuiMenu-paper,
+    .MuiPopover-paper
+  ),
+html[data-platform="windows"][data-interface-style="glass3"]
+  :is(
+    .interface-card,
+    .MuiCard-root,
+    .MuiDialog-paper,
+    .MuiMenu-paper,
+    .MuiPopover-paper
+  ) {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow:
+    inset 0 1px 0 #ffffff30,
+    0 3px 12px #0b223914;
+}
+
 html[data-interface-style="bold"] .interface-card,
 html[data-interface-style="bold"] .MuiCard-root {
   border-top: 2px solid var(--ui-text);

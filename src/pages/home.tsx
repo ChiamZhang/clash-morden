@@ -406,7 +406,7 @@ const HomePage = () => {
                   key={row.join("|")}
                   container
                   spacing={2}
-                  columns={{ xs: 6, sm: 6, md: 12 }}>
+                  columns={{ xs: 12, sm: 12, md: 12 }}>
                   {row.map((key) => {
                     const index = visibleKeys.indexOf(key);
                     return (

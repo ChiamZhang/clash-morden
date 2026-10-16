@@ -447,7 +447,15 @@ const KernelPage = ({
             const fields = section.fields.filter(fieldAvailable);
             if (!fields.length) return null;
             return (
-              <Box key={section.id}>
+              <Box
+                key={section.id}
+                sx={{
+                  // Keep large configuration sections out of the paint/layout
+                  // pass while they are outside the scroll viewport. This is
+                  // especially important for WebView2 during window dragging.
+                  contentVisibility: "auto",
+                  containIntrinsicSize: "0 220px",
+                }}>
                 <Paper
                   elevation={0}
                   sx={{

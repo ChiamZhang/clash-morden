@@ -108,6 +108,7 @@ impl CoreManager {
     /// 启动核心
     pub async fn run_core(&self) -> Result<()> {
         tracing::info!("run core");
+        self.restore_cached_core()?;
         Logger::global().clear_logs();
         tracing::info!("create new clash log file");
         let clash_log_file = VergeLog::global().generate_clash_log_file()?;
@@ -146,6 +147,44 @@ impl CoreManager {
             tracing::debug!("failed to restore selected nodes: {error}");
         }
 
+        Ok(())
+    }
+
+    /// Restore a previously downloaded core after an application update.
+    /// Tauri replaces the executable directory on update, while the user
+    /// cache under app data is intentionally preserved.
+    fn restore_cached_core(&self) -> Result<()> {
+        let core = Self::clash_core_name();
+        let target = current_exe()?.with_file_name(format!("{core}{}", std::env::consts::EXE_SUFFIX));
+        if target.exists() {
+            return Ok(());
+        }
+        let dir = dirs::mihomo_download_dir()?;
+        let mut candidates: Vec<_> = std::fs::read_dir(&dir)
+            .ok()
+            .into_iter()
+            .flatten()
+            .filter_map(|entry| entry.ok().map(|entry| entry.path()))
+            .filter(|path| path.is_file())
+            .filter(|path| {
+                let name = path.file_name().and_then(|name| name.to_str()).unwrap_or_default();
+                !name.ends_with(".part")
+                    && !name.ends_with(".meta")
+                    && (core != "self-mihomo-alpha" || name.contains("alpha"))
+                    && (core != "self-mihomo" || (!name.contains("alpha") && !name.contains("smart")))
+                    && (core != "self-mihomo-smart" || name.contains("smart"))
+            })
+            .collect();
+        candidates.sort_by_key(|path| std::fs::metadata(path).and_then(|meta| meta.modified()).ok());
+        if let Some(source) = candidates.pop() {
+            std::fs::copy(&source, &target).with_context(|| format!("restore cached core {}", source.display()))?;
+            #[cfg(unix)]
+            {
+                use std::os::unix::fs::PermissionsExt;
+                std::fs::set_permissions(&target, std::fs::Permissions::from_mode(0o755))?;
+            }
+            tracing::info!("restored cached core from {}", source.display());
+        }
         Ok(())
     }
 

@@ -55,16 +55,6 @@ window.addEventListener("DOMContentLoaded", async () => {
   await ManagedMihomoWebSocket.cleanupAll();
 });
 
-// 预热首页的可选卡片 chunk（空闲时加载，不阻塞首屏、不进入口 bundle）
-const preloadHomePageCards = () => {
-  void import("@/pages/home").then((module) => module.preloadHomePageCards());
-};
-if ("requestIdleCallback" in window) {
-  window.requestIdleCallback(preloadHomePageCards, { timeout: 5000 });
-} else {
-  setTimeout(preloadHomePageCards, 2000);
-}
-
 createRoot(container).render(
   <React.StrictMode>
     <App />

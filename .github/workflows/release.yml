@@ -219,10 +219,14 @@ jobs:
             echo "Version: ${VERSION}"
             echo ""
             # changelog 内容（去掉开头的 html 注释块模板占位）
-            if head -n 1 CHANGELOG.md | grep -q '^<!--'; then
-              sed '1,/^-->/d' CHANGELOG.md
+            if [ -f CHANGELOG.md ]; then
+              if head -n 1 CHANGELOG.md | grep -q '^<!--'; then
+                sed '1,/^-->/d' CHANGELOG.md
+              else
+                cat CHANGELOG.md
+              fi
             else
-              cat CHANGELOG.md
+              echo "Release ${VERSION}"
             fi
           } > release-body.md
           gh release edit "v${VERSION}" \

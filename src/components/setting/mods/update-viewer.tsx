@@ -298,8 +298,8 @@ export const UpdateViewer = forwardRef<DialogRef>((_props, ref) => {
             onClick={() => {
               openUrl(
                 isPreview
-                  ? "https://github.com/ClashMorden/ClashMorden/releases/tag/preview"
-                  : `https://github.com/ClashMorden/ClashMorden/releases/tag/v${version}`,
+                  ? "https://github.com/null-route-blackhole/clash-morden/releases/tag/preview"
+                  : `https://github.com/null-route-blackhole/clash-morden/releases/tag/v${version}`,
               );
             }}>
             {t("pages.settings.verge.actions.goToReleasePage")}

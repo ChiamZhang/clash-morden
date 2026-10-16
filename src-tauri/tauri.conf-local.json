@@ -9,9 +9,7 @@
       "assetProtocol": {
         "enable": true,
         "scope": {
-          "allow": [
-            "**"
-          ],
+          "allow": ["**"],
           "requireLiteralLeadingDot": false
         }
       },
@@ -53,21 +51,13 @@
       "icons/Square310x310Logo.png",
       "icons/StoreLogo.png"
     ],
-    "resources": [
-      "resources"
-    ],
+    "resources": ["resources"],
     "publisher": "ClashMorden",
     "copyright": "GNU General Public License v3.0",
     "category": "Utility",
     "shortDescription": "A Mihomo GUI based on tauri.",
     "createUpdaterArtifacts": true,
-    "targets": [
-      "app",
-      "dmg",
-      "nsis",
-      "deb",
-      "rpm"
-    ],
+    "targets": ["app", "dmg", "nsis", "deb", "rpm"],
     "macOS": {
       "dmg": {
         "appPosition": {
@@ -98,10 +88,7 @@
       "nsis": {
         "displayLanguageSelector": true,
         "installerIcon": "icons/icon.ico",
-        "languages": [
-          "SimpChinese",
-          "English"
-        ],
+        "languages": ["SimpChinese", "English"],
         "installMode": "perMachine",
         "template": "./template/installer.nsi",
         "installerHooks": "./template/installer-hooks.nsh"
@@ -114,18 +101,14 @@
       },
       "deb": {
         "files": {},
-        "depends": [
-          "openssl"
-        ],
+        "depends": ["openssl"],
         "desktopTemplate": "./template/clashmorden.desktop"
       },
       "rpm": {
         "epoch": 0,
         "files": {},
         "release": "1",
-        "depends": [
-          "openssl"
-        ],
+        "depends": ["openssl"],
         "desktopTemplate": "./template/clashmorden.desktop"
       }
     }
@@ -139,16 +122,14 @@
   "plugins": {
     "deep-link": {
       "desktop": {
-        "schemes": [
-          "clash"
-        ]
+        "schemes": ["clash"]
       }
     },
     "updater": {
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IERGMkQyMTQ4Q0E1QUU3MDAKUldRQTUxcktTQ0V0MzV4V25ncGY1MVNBSVMvQXJ2aHpTMmlqQmxZSEdPclNKVGtmNU5lei9jRSsK",
       "endpoints": [
-        "https://ghproxy.fangkuai.fun/https://github.com/ClashMorden/ClashMorden/releases/download/updater/update-proxy.json",
-        "https://github.com/ClashMorden/ClashMorden/releases/download/updater/update.json"
+        "https://ghproxy.fangkuai.fun/https://github.com/null-route-blackhole/clash-morden/releases/download/updater/update-proxy.json",
+        "https://github.com/null-route-blackhole/clash-morden/releases/download/updater/update.json"
       ]
     }
   }

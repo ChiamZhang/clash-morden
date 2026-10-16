@@ -2,6 +2,8 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { CSS2DRenderer } from "three/addons/renderers/CSS2DRenderer.js";
 import * as THREE from "three/webgpu";
 
+import { OS } from "@/utils/get-system";
+
 import { createCityLabelLayer } from "./city-label-layer";
 import { getRealtimeSunDirection, toEarthVector } from "./earth-math";
 import { createEndpointLayer } from "./endpoint-layer";
@@ -68,12 +70,18 @@ export const createEarthRenderer = async (
   // WebGL path is more reliable across Tauri WebViews; the WebGPU renderer
   // remains available as a fallback for environments that support it fully.
   const createRenderer = async (forceWebGL: boolean) => {
+    // Windows WebView2 and Linux WebKitGTK pay a much higher cost for a
+    // high-DPI antialiased canvas. Keep the globe responsive there while
+    // retaining the sharper presentation on macOS.
+    const isMacOS = OS === "macos";
     const nextRenderer = new THREE.WebGPURenderer({
       alpha: true,
-      antialias: true,
+      antialias: isMacOS,
       forceWebGL,
     });
-    nextRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    nextRenderer.setPixelRatio(
+      Math.min(window.devicePixelRatio, isMacOS ? 2 : 1),
+    );
     nextRenderer.toneMapping = THREE.ACESFilmicToneMapping;
     nextRenderer.toneMappingExposure = 1.05;
     nextRenderer.domElement.className =

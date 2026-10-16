@@ -82,10 +82,7 @@ impl CoreManager {
         std::fs::create_dir_all(&check_dir)?;
         let app_dir = dirs::path_to_str(&check_dir)?;
         let core_name = Self::clash_core_name();
-        let core_path = current_exe()?.with_file_name(format!(
-            "{core_name}{}",
-            std::env::consts::EXE_SUFFIX
-        ));
+        let core_path = current_exe()?.with_file_name(format!("{core_name}{}", std::env::consts::EXE_SUFFIX));
         let output = tokio::process::Command::new(&core_path)
             .args(["-t", "-d", app_dir, "-f", config_path])
             .output()
@@ -141,6 +138,13 @@ impl CoreManager {
         }
 
         self.wait_for_socket().await?;
+        // Restore the node selections persisted on the active profile after the
+        // core is ready. This also covers application startup and core restarts.
+        if let Err(error) = crate::config::activate_selected_nodes().await {
+            // A fresh installation may not have an active profile yet; that
+            // should not prevent the core itself from starting.
+            tracing::debug!("failed to restore selected nodes: {error}");
+        }
 
         Ok(())
     }
@@ -155,7 +159,10 @@ impl CoreManager {
                 }
                 tokio::time::sleep(Duration::from_millis(100)).await;
             }
-            anyhow::bail!("mihomo core failed to start: socket {} was not created", socket.display());
+            anyhow::bail!(
+                "mihomo core failed to start: socket {} was not created",
+                socket.display()
+            );
         }
         #[cfg(windows)]
         {
@@ -222,9 +229,7 @@ impl CoreManager {
                 Ok(()) => tracing::info!("removed transient Mihomo cache file {}", path.display()),
                 Err(err) if err.kind() == std::io::ErrorKind::NotFound => {}
                 Err(err) => {
-                    return Err(err).with_context(|| {
-                        format!("failed to remove Mihomo cache file {}", path.display())
-                    });
+                    return Err(err).with_context(|| format!("failed to remove Mihomo cache file {}", path.display()));
                 }
             }
         }

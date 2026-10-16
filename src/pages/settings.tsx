@@ -27,7 +27,7 @@ const SettingPage = () => {
   );
 
   const openGithubRepo = useLockFn(() => {
-    return openWebUrl("https://github.com/ClashMorden/ClashMorden");
+    return openWebUrl("https://github.com/null-route-blackhole/clash-morden");
   });
 
   return (

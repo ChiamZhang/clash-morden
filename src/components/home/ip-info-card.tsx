@@ -6,7 +6,12 @@ import { Eye, EyeOff, RefreshCw } from "lucide-react";
 import { memo, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { getPublicIpInfo, IP_INFO_API, randomPublicIp, type IpInfo } from "@/services/api";
+import {
+  getPublicIpInfo,
+  IP_INFO_API,
+  type IpInfo,
+  randomPublicIp,
+} from "@/services/api";
 import { swrKeys, useSWR } from "@/services/swr";
 
 import { CardLegend } from "./card-legend";
@@ -132,7 +137,8 @@ export const IpInfoCard = () => {
 
   const primary = useSWR(
     [swrKeys.ipInfoPrimary, primaryApi, showIp] as const,
-    ([, api, visible]) => getPublicIpInfo(api, visible ? undefined : randomPublicIp()),
+    ([, api, visible]) =>
+      getPublicIpInfo(api, visible ? undefined : randomPublicIp()),
     {
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
@@ -143,7 +149,8 @@ export const IpInfoCard = () => {
   );
   const secondary = useSWR(
     [swrKeys.ipInfoSecondary, secondaryApi, showIp] as const,
-    ([, api, visible]) => getPublicIpInfo(api, visible ? undefined : randomPublicIp()),
+    ([, api, visible]) =>
+      getPublicIpInfo(api, visible ? undefined : randomPublicIp()),
     {
       revalidateOnFocus: false,
       revalidateOnReconnect: false,

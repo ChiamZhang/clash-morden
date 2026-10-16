@@ -199,13 +199,15 @@ function Panel({
     <section className={`ds-panel ${wide ? "ds-wide" : ""}`}>
       <header>
         <div className="ds-panel-title">
-          {onIconClick ? (
-            <IconControl label={iconLabel ?? title} onClick={onIconClick}>
-              {icon}
-            </IconControl>
-          ) : (
-            <span className="ds-title-icon">{icon}</span>
-          )}
+          <span className="ds-title-icon">
+            {onIconClick ? (
+              <IconControl label={iconLabel ?? title} onClick={onIconClick}>
+                {icon}
+              </IconControl>
+            ) : (
+              icon
+            )}
+          </span>
           <h2>{title}</h2>
         </div>
         <div className="ds-tools">{tools}</div>

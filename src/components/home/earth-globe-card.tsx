@@ -21,7 +21,12 @@ import { PauseRounded as PauseRoundedIcon } from "@/components/base/interface-ic
 import { PlaceRounded as PlaceRoundedIcon } from "@/components/base/interface-icons";
 import { PlayArrowRounded as PlayArrowRoundedIcon } from "@/components/base/interface-icons";
 import { useConnectionData } from "@/hooks/use-connection-data";
-import { getPublicIpInfo, IP_INFO_API, randomPublicIp, type IpInfo } from "@/services/api";
+import {
+  getPublicIpInfo,
+  IP_INFO_API,
+  type IpInfo,
+  randomPublicIp,
+} from "@/services/api";
 import { writeAppDiagnostic } from "@/services/cmds";
 import { lookupCountryCodes } from "@/services/geoip";
 import { resolveMapHost } from "@/services/map-dns";
@@ -157,7 +162,11 @@ export const EarthGlobeCard = () => {
     origin: EarthLocation | null;
   }>({ routes: [], origin: null });
   useEffect(() => {
-    if (!showOrigin && mapData.routes.length > 0 && !originAPIInfoRef.current?.city) {
+    if (
+      !showOrigin &&
+      mapData.routes.length > 0 &&
+      !originAPIInfoRef.current?.city
+    ) {
       void loadOrigin(true);
     }
   }, [mapData.routes.length, showOrigin]);
@@ -426,8 +435,12 @@ export const EarthGlobeCard = () => {
           return;
         }
         try {
-          const result = await getPublicIpInfo(IP_INFO_API.IPSB, randomPublicIp());
-          if (requestID !== originRequestIDRef.current || !isValidIP(result.ip)) return;
+          const result = await getPublicIpInfo(
+            IP_INFO_API.IPSB,
+            randomPublicIp(),
+          );
+          if (requestID !== originRequestIDRef.current || !isValidIP(result.ip))
+            return;
           setOriginIP(result.ip);
           originAPIInfoRef.current = result;
           setOriginStatus("ready");

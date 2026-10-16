@@ -210,7 +210,6 @@ function printTaskRecords(
   note(lines.join("\n"), title);
 }
 
-
 /**
  * fetch with timeout (default timeout: 8000ms)
  */
@@ -429,9 +428,7 @@ async function downloadClashVergeSelfService(
   const serviceVersion = getClashVergeSelfServiceVersion();
   const label = channel === "alpha" ? "Alpha" : `v${serviceVersion}`;
   if (!serviceVersion) {
-    throw new Error(
-      `Failed to get ClashMorden Service version for ${label}.`,
-    );
+    throw new Error(`Failed to get ClashMorden Service version for ${label}.`);
   }
 
   const fileName = `clash-verge-self-service-${sidecarHost}${exeSuffix}`;
@@ -440,7 +437,7 @@ async function downloadClashVergeSelfService(
   // 服务二进制从自家仓库的 release 拉取（由 Service Alpha Build /
   // Release Service CI 工作流发布）。必须与 App 使用同一 PSK secret
   // 构建，且 SERVICE_EXECUTABLE 名称与本仓库一致，否则服务模式不可用。
-  const downloadURL = `https://github.com/ClashMorden/ClashMorden/releases/download/${releaseTag}/${fileName}`;
+  const downloadURL = `https://github.com/null-route-blackhole/clash-morden/releases/download/${releaseTag}/${fileName}`;
 
   report(`Download ClashMorden Service (${label})`);
   await resolveResource(

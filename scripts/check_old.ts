@@ -485,7 +485,7 @@ async function resolveServicePermission(_logger: TaskLogger) {
 function getClashVergeSelfService(version: Version): ResourceInfo {
   const fileName = `clash-verge-self-service-${sidecarHost}${exeSuffix}`;
   const releaseTag = version === "alpha" ? "alpha" : VERGE_SERVICE_VERSION;
-  const downloadURL = `https://github.com/ClashMorden/ClashMorden-service/releases/download/${releaseTag}/${fileName}`;
+  const downloadURL = `https://github.com/null-route-blackhole/clash-morden-service/releases/download/${releaseTag}/${fileName}`;
 
   return {
     file: fileName,

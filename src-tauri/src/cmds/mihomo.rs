@@ -171,7 +171,14 @@ async fn fetch_smart_version(client: &HttpClient) -> Result<MihomoVersion> {
     let version = String::from_utf8_lossy(&body).trim().to_string();
     let platform = Platform::current()?;
     let base = canonical_asset_base(platform);
-    let name = format!("{base}-{version}.{}", if platform.as_str().starts_with("windows") { "zip" } else { "gz" });
+    let name = format!(
+        "{base}-{version}.{}",
+        if platform.as_str().starts_with("windows") {
+            "zip"
+        } else {
+            "gz"
+        }
+    );
     Ok(smart_version_entry(vec![smart_asset(platform, &name)]))
 }
 
@@ -283,7 +290,10 @@ fn remove_cached_download(dir: &Path, asset_name: &str) -> Result<()> {
 fn cleanup_cached_downloads(dir: &Path, keep: &Path) -> Result<()> {
     for entry in std::fs::read_dir(dir)? {
         let path = entry?.path();
-        if path.is_file() && path != keep && (path.extension().is_none() || path.extension().is_some_and(|ext| ext == "gz" || ext == "zip")) {
+        if path.is_file()
+            && path != keep
+            && (path.extension().is_none() || path.extension().is_some_and(|ext| ext == "gz" || ext == "zip"))
+        {
             std::fs::remove_file(path)?;
         }
     }
@@ -433,8 +443,7 @@ pub async fn install_mihomo_version(tag: String, asset: String, app: AppHandle) 
                 install_binary("self-mihomo-smart", &downloaded).await?;
                 return Ok(());
             }
-            let index =
-                mihomo_versions::fetch_index_cached(&client, &[MIHOMO_RELEASE_URL], &INDEX_CACHE).await?;
+            let index = mihomo_versions::fetch_index_cached(&client, &[MIHOMO_RELEASE_URL], &INDEX_CACHE).await?;
             let version = resolve_version(&index, &tag)?;
             let asset = resolve_asset(&version, &asset)?;
             let downloaded = ensure_downloaded(&app, &client, asset).await?;
@@ -451,8 +460,7 @@ pub async fn get_mihomo_versions() -> CommandResult<Vec<mihomo_versions::MihomoV
     into_command_result(
         async {
             let client = http_client()?;
-            let index =
-                mihomo_versions::fetch_index_cached(&client, &[MIHOMO_RELEASE_URL], &INDEX_CACHE).await?;
+            let index = mihomo_versions::fetch_index_cached(&client, &[MIHOMO_RELEASE_URL], &INDEX_CACHE).await?;
             let platform = Platform::current()?;
             let mut versions: Vec<MihomoVersion> = mihomo_versions::assets_for_platform(&index, platform, None)
                 .into_iter()

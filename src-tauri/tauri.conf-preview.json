@@ -3,8 +3,8 @@
   "plugins": {
     "updater": {
       "endpoints": [
-        "https://gh-proxy.org/https://github.com/ClashMorden/ClashMorden/releases/download/updater/preview-update-proxy.json",
-        "https://github.com/ClashMorden/ClashMorden/releases/download/updater/preview-update.json"
+        "https://gh-proxy.org/https://github.com/null-route-blackhole/clash-morden/releases/download/updater/preview-update-proxy.json",
+        "https://github.com/null-route-blackhole/clash-morden/releases/download/updater/preview-update.json"
       ]
     }
   }

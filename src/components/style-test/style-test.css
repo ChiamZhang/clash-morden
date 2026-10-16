@@ -215,8 +215,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
+  width: var(--control-h);
+  height: var(--control-h);
   color: var(--muted);
+  flex: 0 0 var(--control-h);
 }
 .ds-lab .ds-panel-content {
   padding: 16px;

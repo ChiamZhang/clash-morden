@@ -128,7 +128,10 @@ fn run_privileged_service_command(
         shell_quote(log_dir),
     );
     if operation == "install" {
-        shell_command.push_str(&format!(" --server-id {}", shell_quote(std::path::Path::new(SERVER_ID))));
+        shell_command.push_str(&format!(
+            " --server-id {}",
+            shell_quote(std::path::Path::new(SERVER_ID))
+        ));
     }
     let command = format!(
         "do shell script \"{}\" with administrator privileges",
@@ -146,10 +149,7 @@ fn run_privileged_service_command(
     let stdout = String::from_utf8_lossy(&output.stdout).trim().to_string();
     let detail = if !stderr.is_empty() { stderr } else { stdout };
     if detail.is_empty() {
-        anyhow::bail!(
-            "failed to {operation} service with status {:?}",
-            output.status.code()
-        );
+        anyhow::bail!("failed to {operation} service with status {:?}", output.status.code());
     }
     anyhow::bail!(
         "failed to {operation} service with status {:?}: {detail}",

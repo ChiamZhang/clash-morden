@@ -62,7 +62,10 @@ import {
 const INIT_DELAY = 400;
 const STATUS_STORAGE_KEY = "clashmorden-geoip-status";
 const INIT_IDLE_TIMEOUT = 1000;
-const ROUTE_REFRESH_DEBOUNCE = 150;
+// Connection WebSocket updates can arrive many times per second. Rebuilding
+// route geometry that often makes WebGPU defer disposed buffers on Windows,
+// causing the process to grow for the lifetime of the overview page.
+const ROUTE_REFRESH_DEBOUNCE = 1000;
 
 const isValidIP = (value: string) => Boolean(value && ipaddr.isValid(value));
 

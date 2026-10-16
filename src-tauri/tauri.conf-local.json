@@ -124,6 +124,12 @@
       "desktop": {
         "schemes": ["clash"]
       }
+    },
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IHJzaWduIGVuY3J5cHRlZCBzZWNyZXQga2V5ClJXUlRZMEl5V081SzZDb25YajJvOXgvdHJBNXJvMXFwSHp1dCtSdVdvRU42Q0dZMmMrd0FBQkFBQUFBQUFBQUFBQUlBQUFBQTdEdDBpaEV5bVpNeGZZZXR4MzJHQXdqV2E2SzVSQjUxR0w4YlRJQnJLN1BZN09kc200M2FnWGZlYmhwNWdZaW9wS0NNK2c0Y3p6ZE05VTJkQ0lnK2dhTTF1UFI2QmlsUCtzbjVGSzlzZGRJcmErOUdtako5QjRyemFLN2hpZ1FoRWtPNzFWOUZYZHc9Cg==",
+      "endpoints": [
+        "https://github.com/null-route-blackhole/clash-morden/releases/download/updater/update.json"
+      ]
     }
   }
 }

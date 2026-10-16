@@ -1,6 +1,6 @@
 {
   "name": "clashmorden",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "license": "GPL-3.0-only",
   "type": "module",
   "scripts": {
@@ -24,6 +24,7 @@
     "generate-routes": "tsr generate",
     "watch-routes": "tsr watch",
     "bump": "tsx scripts/bump-version.ts",
+    "push": "tsx scripts/push.ts",
     "check:locales": "tsx scripts/check-locales.ts"
   },
   "dependencies": {

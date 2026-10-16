@@ -1,10 +1,7 @@
+import { useSyncExternalStore } from "react";
 import type { ConnectionInfo, Connections } from "tauri-plugin-mihomo-api";
 
-import {
-  ManagedMihomoWebSocket,
-  subscribeManagedMihomoWebSocketText,
-} from "@/services/managedMihomoWs";
-import { mutate, swrSubscriptionKey, useSWRSubscription } from "@/services/swr";
+import { ManagedMihomoWebSocket } from "@/services/managedMihomoWs";
 import { useConnectionHistoryStore } from "@/stores/connectionHistoryStore";
 
 export type IConnectionsItem = ConnectionInfo & {
@@ -32,6 +29,61 @@ export const initConnData: ConnectionMonitorData = {
 
 const MAX_CLOSED_CONNS = 500;
 let lastHistoryIngestAt = 0;
+let connectionData = initConnData;
+let connectionError: unknown = null;
+let connectionSocket: ManagedMihomoWebSocket | null = null;
+let connectionStarting: Promise<void> | null = null;
+let connectionConsumers = 0;
+const connectionListeners = new Set<() => void>();
+
+const emitConnectionData = () =>
+  connectionListeners.forEach((listener) => {
+    listener();
+  });
+
+const startConnection = () => {
+  if (connectionSocket || connectionStarting) return;
+  connectionStarting = ManagedMihomoWebSocket.connectConnections((message) => {
+    if (message.type !== "Text") return;
+    try {
+      connectionData = updateConnections(
+        JSON.parse(message.data) as Connections,
+        connectionData,
+      );
+      connectionError = null;
+      emitConnectionData();
+    } catch (error) {
+      connectionError = error;
+      emitConnectionData();
+    }
+  })
+    .then((socket) => {
+      if (connectionConsumers === 0) return socket.close();
+      connectionSocket = socket;
+    })
+    .catch((error) => {
+      connectionError = error;
+      emitConnectionData();
+    })
+    .finally(() => {
+      connectionStarting = null;
+    });
+};
+
+const subscribeConnectionData = (listener: () => void) => {
+  connectionListeners.add(listener);
+  connectionConsumers += 1;
+  startConnection();
+  return () => {
+    connectionListeners.delete(listener);
+    connectionConsumers = Math.max(0, connectionConsumers - 1);
+    if (connectionConsumers === 0 && connectionSocket) {
+      const socket = connectionSocket;
+      connectionSocket = null;
+      void socket.close();
+    }
+  };
+};
 
 const updateConnections = (
   data: Connections,
@@ -77,40 +129,16 @@ const updateConnections = (
 };
 
 export const useConnectionData = () => {
-  const subscriptKey = `getClashConnection`;
-
-  const response = useSWRSubscription<
-    ConnectionMonitorData,
-    any,
-    string | null
-  >(
-    subscriptKey,
-    (_key, { next }) =>
-      subscribeManagedMihomoWebSocketText({
-        connect: ManagedMihomoWebSocket.connectConnections,
-        onText: (text) => {
-          try {
-            next(null, (old = initConnData) =>
-              updateConnections(JSON.parse(text) as Connections, old),
-            );
-          } catch (e) {
-            next(e, initConnData);
-          }
-        },
-        onError: (err) => next(err, (old = initConnData) => old),
-      }),
-    {
-      fallbackData: initConnData,
-      keepPreviousData: true,
-    },
+  const data = useSyncExternalStore(
+    subscribeConnectionData,
+    () => connectionData,
+    () => initConnData,
   );
+  const response = { data, error: connectionError, isLoading: false };
 
   const clearClosedConnections = () => {
-    const current = response.data ?? initConnData;
-    mutate(swrSubscriptionKey(subscriptKey), {
-      ...current,
-      closedConnections: [],
-    });
+    connectionData = { ...connectionData, closedConnections: [] };
+    emitConnectionData();
   };
 
   return {

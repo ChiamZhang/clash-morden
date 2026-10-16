@@ -180,17 +180,18 @@ export const OverviewTopbar = ({
         ) : (
           <CircleCheck size={15} />
         )}
-        <span>
-          {t(
-            coreStatusLoading
-              ? "pages.home.topbar.coreChecking"
-              : !coreInstalled
-                ? "pages.home.topbar.coreMissing"
+        {/* 内核缺失时只保留图标，完整说明通过点击后的弹窗展示。 */}
+        {coreInstalled || coreStatusLoading ? (
+          <span>
+            {t(
+              coreStatusLoading
+                ? "pages.home.topbar.coreChecking"
                 : coreRunning
                   ? "pages.home.topbar.coreRunning"
                   : "pages.home.topbar.coreStopped",
-          )}
-        </span>
+            )}
+          </span>
+        ) : null}
       </Box>
       <div className="ds-tools">
         <OverviewIcon

@@ -5,7 +5,7 @@ on:
     branches:
       - dev
     paths:
-      - "crates/clash-verge-self-service/**"
+      - "crates/clash-morden-service/**"
       - "crates/process_supervisor/**"
       - "crates/clash-verge-self-utils/**"
   workflow_dispatch:
@@ -59,7 +59,7 @@ jobs:
         if: matrix.os != 'ubuntu-latest'
         env:
           CLASH_VERGE_SELF_SERVICE_PSK: ${{secrets.CLASH_VERGE_SELF_SERVICE_PSK}}
-        run: cargo build --package clash-verge-self-service --release --target ${{ matrix.target }}
+        run: cargo build --package clash-morden-service --release --target ${{ matrix.target }}
 
       - name: Build (Linux)
         if: matrix.os == 'ubuntu-latest'
@@ -73,8 +73,8 @@ jobs:
         shell: bash
         run: |
           EXT=${{ matrix.os == 'windows-latest' && '.exe' || '' }}
-          cp "target/${{ matrix.target }}/release/clash-verge-self-service${EXT}" \
-            "./clash-verge-self-service-${{ matrix.target }}${EXT}"
+          cp "target/${{ matrix.target }}/release/clash-morden-service${EXT}" \
+            "./clash-morden-service-${{ matrix.target }}${EXT}"
 
       - name: Create Pre-Release
         uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64 # v3
@@ -84,5 +84,5 @@ jobs:
           prerelease: true
           token: ${{ secrets.GITHUB_TOKEN }}
           files: |
-            ./clash-verge-self-service-${{ matrix.target }}
-            ./clash-verge-self-service-${{ matrix.target }}.exe
+            ./clash-morden-service-${{ matrix.target }}
+            ./clash-morden-service-${{ matrix.target }}.exe

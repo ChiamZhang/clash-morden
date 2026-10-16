@@ -1,4 +1,4 @@
-use clash_verge_self_service::model::{ClashRunInfo, JsonResponse};
+use clash_morden_service::model::{ClashRunInfo, JsonResponse};
 
 use crate::{
     cmds::{CommandResult, into_command_result},

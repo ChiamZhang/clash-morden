@@ -5,7 +5,7 @@
 //! - cmds 页面调用
 //!
 use anyhow::{Context, Result};
-use clash_verge_self_service::model::JsonResponse;
+use clash_morden_service::model::JsonResponse;
 use rust_i18n::t;
 use serde_yaml::{Mapping, Value};
 use tauri::AppHandle;

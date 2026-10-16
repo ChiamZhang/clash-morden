@@ -26,7 +26,7 @@ done
 
 echo "==> 编译（仅 .app，无 dmg、无签名）"
 # 服务模式使用的是打包进 App 的 sidecar。每次运行前都重新构建并复制
-# clashmorden-service，避免继续使用旧的服务安装器。
+# clash-morden-service，避免继续使用旧的服务安装器。
 echo "==> 编译服务 sidecar"
 pnpm build:service
 

@@ -468,7 +468,7 @@ async function resolvePlugin(logger: TaskLogger) {
  * chmod 755 for ClashMorden Service
  */
 async function resolveServicePermission(_logger: TaskLogger) {
-  const serviceExecutable = `clash-verge-self-service${exeSuffix}`;
+  const serviceExecutable = `clash-morden-service${exeSuffix}`;
   const targetPath = resourcePath(serviceExecutable);
   const spin = spinner();
   spin.start("chmod...");
@@ -483,7 +483,7 @@ async function resolveServicePermission(_logger: TaskLogger) {
 }
 
 function getClashVergeSelfService(version: Version): ResourceInfo {
-  const fileName = `clash-verge-self-service-${sidecarHost}${exeSuffix}`;
+  const fileName = `clash-morden-service-${sidecarHost}${exeSuffix}`;
   const releaseTag = version === "alpha" ? "alpha" : VERGE_SERVICE_VERSION;
   const downloadURL = `https://github.com/null-route-blackhole/clash-morden-service/releases/download/${releaseTag}/${fileName}`;
 
@@ -503,7 +503,7 @@ async function resolveClashVergeSelfService(
   logger.message(`Download ClashMorden Service (${label})`);
   await resolveResource(
     {
-      file: `clash-verge-self-service${exeSuffix}`,
+      file: `clash-morden-service${exeSuffix}`,
       downloadURL: downloadItem.downloadURL,
     },
     logger,
@@ -609,11 +609,11 @@ function createTasks(version: Version): Task[] {
   return [
     ...createMihomoTask(),
     {
-      name: "Download clash-verge-self-service",
+      name: "Download clash-morden-service",
       func: (logger: TaskLogger) =>
         resolveClashVergeSelfService(version, logger),
       retry: 5,
-      targetPath: resourcePath(`clash-verge-self-service${exeSuffix}`),
+      targetPath: resourcePath(`clash-morden-service${exeSuffix}`),
     },
     ...RESOURCE_TASKS.map(createResourceTask),
     {
@@ -626,11 +626,11 @@ function createTasks(version: Version): Task[] {
         : undefined,
     },
     {
-      name: "Chmod clash-verge-self-service",
+      name: "Chmod clash-morden-service",
       func: resolveServicePermission,
       retry: 1,
       unixOnly: true,
-      targetPath: resourcePath(`clash-verge-self-service${exeSuffix}`),
+      targetPath: resourcePath(`clash-morden-service${exeSuffix}`),
     },
   ];
 }

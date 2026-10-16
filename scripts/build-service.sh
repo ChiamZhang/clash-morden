@@ -5,7 +5,7 @@ set -u  # 使用未定义变量时报错
 # 默认构建 target
 BUILD_TARGET=""
 RESOURCE_DIR="src-tauri/resources"
-PACKAGE_NAME="clash-verge-self-service"
+PACKAGE_NAME="clash-morden-service"
 
 # 解析命令行参数
 while [[ $# -gt 0 ]]; do

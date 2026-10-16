@@ -157,7 +157,7 @@ export function getExeSuffix(argv: string[]) {
 export function getClashVergeSelfServiceVersion() {
   const cargoFilePath = path.join(
     process.cwd(),
-    "crates/clash-verge-self-service/Cargo.toml",
+    "crates/clash-morden-service/Cargo.toml",
   );
 
   return fs

@@ -28,9 +28,9 @@ pub fn process(server_id: Option<String>) -> Result<()> {
     log::debug!("Generate service file at {}", target_binary_path);
     let target_binary_dir = Path::new("/Library/PrivilegedHelperTools");
     if !service_binary_path.exists() {
-        log::error!("The clash-verge-self-service binary not found.");
+        log::error!("The clash-morden-service binary not found.");
         return Err(ServiceError::General(format!(
-            "The clash-verge-self-service binary was not found at {}",
+            "The clash-morden-service binary was not found at {}",
             service_binary_path.display()
         )));
     }
@@ -162,7 +162,7 @@ pub fn process(server_id: Option<String>) -> Result<()> {
         .unwrap()
         .with_file_name(clash_verge_self_service::SERVICE_EXECUTABLE);
     if !service_binary_path.exists() {
-        log::error!("The clash-verge-self-service binary not found.");
+        log::error!("The clash-morden-service binary not found.");
         std::process::exit(2);
     }
 
@@ -278,7 +278,7 @@ pub fn process(server_id: Option<String>) -> Result<()> {
         .with_file_name(clash_verge_self_service::SERVICE_EXECUTABLE);
 
     if !service_binary_path.exists() {
-        log::error!("clash-verge-self-service.exe not found");
+        log::error!("clash-morden-service.exe not found");
         std::process::exit(2);
     }
 

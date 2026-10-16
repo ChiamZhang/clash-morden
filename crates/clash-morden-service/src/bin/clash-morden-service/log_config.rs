@@ -23,7 +23,7 @@ pub struct LogConfig {
 impl Default for LogConfig {
     fn default() -> Self {
         Self {
-            log_file_name: "clash-verge-self-service.log".to_string(),
+            log_file_name: "clash-morden-service.log".to_string(),
             log_dir: None,
             limited_file_size: Some(2 * 1024 * 1024),
             log_level: Some(LevelFilter::Debug),

@@ -6,6 +6,6 @@ pub use message::{check_service, get_logs, stop_service};
 pub(super) use message::{run_core_by_service, stop_core_by_service};
 
 // #[cfg(not(feature = "verge-dev"))]
-const SERVER_ID: &str = "clashmorden-service-server";
+const SERVER_ID: &str = "clash-morden-service-server";
 // #[cfg(feature = "verge-dev")]
-// const SERVER_ID: &str = "clashmorden-service-server-dev";
+// const SERVER_ID: &str = "clash-morden-service-server-dev";

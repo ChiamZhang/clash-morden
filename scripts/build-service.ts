@@ -37,7 +37,7 @@ function detectHostTriple(): string | null {
 
 export async function buildService(logger?: (message: string) => void) {
   const argv = process.argv;
-  const packageName = "clash-verge-self-service";
+  const packageName = "clash-morden-service";
 
   const target = getTarget(argv);
 
@@ -107,7 +107,7 @@ export async function buildService(logger?: (message: string) => void) {
   if (target) {
     bundleFilePath = `target/${target}/release/${packageName}${exeSuffix}`;
   }
-  const serviceResPath = resourcePath(`clashmorden-service${exeSuffix}`);
+  const serviceResPath = resourcePath(`clash-morden-service${exeSuffix}`);
   await fs.copyFile(bundleFilePath, serviceResPath);
   if (exeSuffix !== ".exe") {
     execSync(`chmod 755 ${serviceResPath}`);
@@ -116,7 +116,7 @@ export async function buildService(logger?: (message: string) => void) {
 
 if (import.meta.main) {
   buildService().then(() => {
-    const serviceDir = cratesPath("clash-verge-self-service");
+    const serviceDir = cratesPath("clash-morden-service");
     const snapshot = snapshotFilesHashOnDir(serviceDir);
     try {
       fs.mkdirpSync(path.dirname(SERVICE_CACHE_FILE));

@@ -32,7 +32,7 @@ async function main() {
   // The service binary depends on these crates, so include them in the change
   // detection. Paths are prefixed with the crate name to avoid key collisions.
   const watchDirs = [
-    "clash-verge-self-service",
+    "clash-morden-service",
     "clash-verge-self-utils",
     "process_supervisor",
   ];

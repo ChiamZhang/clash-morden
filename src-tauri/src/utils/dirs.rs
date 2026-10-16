@@ -104,13 +104,13 @@ pub fn profiles_path() -> Result<PathBuf> {
 pub fn service_bin_path() -> Result<PathBuf> {
     let exe_ext = std::env::consts::EXE_SUFFIX;
     let resources = app_resources_dir()?;
-    let service_bin = resources.join(format!("clashmorden-service{}", exe_ext));
+    let service_bin = resources.join(format!("clash-morden-service{}", exe_ext));
     if service_bin.exists() {
         return Ok(service_bin);
     }
     // Older bundles used the pre-rebrand resource name. Keep them usable so
     // service installation does not fail with the installer's exit code 2.
-    Ok(resources.join(format!("clash-verge-self-service{}", exe_ext)))
+    Ok(resources.join(format!("clash-morden-service{}", exe_ext)))
 }
 
 pub fn backup_dir() -> Result<PathBuf> {

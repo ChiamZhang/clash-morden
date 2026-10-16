@@ -20,14 +20,14 @@ use crate::service::SecureChannel;
 pub const SERVICE_TYPE: ServiceType = ServiceType::OWN_PROCESS;
 pub const SERVICE_NAME: &str = "clashmorden_service";
 pub const SERVICE_EXECUTABLE: &str = if cfg!(windows) {
-    "clashmorden-service.exe"
+    "clash-morden-service.exe"
 } else {
-    "clashmorden-service"
+    "clash-morden-service"
 };
 pub const MACOS_HELPER_ID: &str = "io.github.clashmorden.clashmorden.helper";
 
 // default server id
-pub const DEFAULT_SERVER_ID: &str = "clashmorden-service-server";
+pub const DEFAULT_SERVER_ID: &str = "clash-morden-service-server";
 
 // encode relate
 const KEY_INFO: &[u8] = b"7f3b9d2c8a1e4f6b9d0a5c2e1f8b3d7a";

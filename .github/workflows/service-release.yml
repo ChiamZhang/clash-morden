@@ -21,7 +21,7 @@ jobs:
       - name: Get version
         id: get-version
         run: |
-          echo "version=$(cargo metadata --no-deps --quiet | jq -r '.packages[] | select(.name == "clash-verge-self-service") | .version')" >> $GITHUB_OUTPUT
+          echo "version=$(cargo metadata --no-deps --quiet | jq -r '.packages[] | select(.name == "clash-morden-service") | .version')" >> $GITHUB_OUTPUT
 
   release-build:
     needs: get-service-version
@@ -59,7 +59,7 @@ jobs:
         if: matrix.os != 'ubuntu-latest'
         env:
           CLASH_VERGE_SELF_SERVICE_PSK: ${{secrets.CLASH_VERGE_SELF_SERVICE_PSK}}
-        run: cargo build --package clash-verge-self-service --release --target ${{ matrix.target }}
+        run: cargo build --package clash-morden-service --release --target ${{ matrix.target }}
 
       - name: Build (Linux)
         if: matrix.os == 'ubuntu-latest'
@@ -72,13 +72,13 @@ jobs:
       - name: Rename Clash Verge Service (Linux / MacOS)
         if: matrix.os != 'windows-latest'
         run: |
-          cp target/${{ matrix.target }}/release/clash-verge-self-service ./clash-verge-self-service-${{ matrix.target }}
+          cp target/${{ matrix.target }}/release/clash-morden-service ./clash-morden-service-${{ matrix.target }}
 
       - name: Rename Clash Verge Service (Windows)
         if: matrix.os == 'windows-latest'
         shell: bash
         run: |
-          cp target/${{ matrix.target }}/release/clash-verge-self-service.exe ./clash-verge-self-service-${{ matrix.target }}.exe
+          cp target/${{ matrix.target }}/release/clash-morden-service.exe ./clash-morden-service-${{ matrix.target }}.exe
 
       - name: Create Pre-Release
         uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64 # v3
@@ -87,5 +87,5 @@ jobs:
           tag_name: service-v${{ needs.get-service-version.outputs.version }}
           token: ${{ secrets.GITHUB_TOKEN }}
           files: |
-            ./clash-verge-self-service-${{ matrix.target }}
-            ./clash-verge-self-service-${{ matrix.target }}.exe
+            ./clash-morden-service-${{ matrix.target }}
+            ./clash-morden-service-${{ matrix.target }}.exe

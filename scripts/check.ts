@@ -410,7 +410,7 @@ async function resolvePlugin(report: TaskReporter) {
  * chmod 755 for ClashMorden Service
  */
 async function resolveServicePermission(report: TaskReporter) {
-  const serviceExecutable = `clashmorden-service${exeSuffix}`;
+  const serviceExecutable = `clash-morden-service${exeSuffix}`;
   const targetPath = resourcePath(serviceExecutable);
   report("chmod...");
   if (await fs.pathExists(targetPath)) {
@@ -431,7 +431,7 @@ async function downloadClashVergeSelfService(
     throw new Error(`Failed to get ClashMorden Service version for ${label}.`);
   }
 
-  const fileName = `clash-verge-self-service-${sidecarHost}${exeSuffix}`;
+  const fileName = `clash-morden-service-${sidecarHost}${exeSuffix}`;
   const releaseTag =
     channel === "alpha" ? "service-alpha" : `service-v${serviceVersion}`;
   // 服务二进制从自家仓库的 release 拉取（由 Service Alpha Build /
@@ -441,7 +441,7 @@ async function downloadClashVergeSelfService(
 
   report(`Download ClashMorden Service (${label})`);
   await resolveResource(
-    { file: `clashmorden-service${exeSuffix}`, downloadURL },
+    { file: `clash-morden-service${exeSuffix}`, downloadURL },
     report,
   );
   await resolveServicePermission(report);
@@ -547,7 +547,7 @@ function createTasks(channel: Channel | undefined): Task[] {
       func: (report: TaskReporter) =>
         resolveClashVergeSelfService(channel, report),
       retry: 5,
-      targetPath: resourcePath(`clashmorden-service${exeSuffix}`),
+      targetPath: resourcePath(`clash-morden-service${exeSuffix}`),
     },
     ...RESOURCE_TASKS.map(createResourceTask),
     {

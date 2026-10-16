@@ -1,6 +1,6 @@
 [package]
 name = "clashmorden"
-version = "1.0.1"
+version = "1.0.2"
 description = "clash verge self"
 authors = ["Anonymous"]
 license = "GPL-3.0-only"
@@ -21,7 +21,7 @@ tauri-plugin-mihomo.workspace = true
 mihomo-rule-parser.workspace = true
 process_supervisor.workspace = true
 clash-verge-self-utils.workspace = true
-clash-verge-self-service.workspace = true
+clash-morden-service.workspace = true
 
 tokio.workspace = true
 reqwest = { workspace = true, features = ["gzip"] }

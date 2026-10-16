@@ -18,7 +18,7 @@ pub async fn install_service() -> Result<()> {
     let install_path = dirs::service_bin_path()?;
     tracing::debug!("clashmorden service file path: {}", install_path.display());
     if !install_path.exists() {
-        anyhow::bail!("clash-verge-self-service file not found");
+        anyhow::bail!("clash-morden-service file not found");
     }
 
     let log_dir = dirs::app_logs_dir()?;
@@ -54,9 +54,9 @@ pub async fn install_service() -> Result<()> {
     use users::get_effective_uid;
 
     let installer_path = dirs::service_bin_path()?;
-    tracing::debug!("clash-verge-self-service file path: {}", installer_path.display());
+    tracing::debug!("clash-morden-service file path: {}", installer_path.display());
     if !installer_path.exists() {
-        anyhow::bail!("clash-verge-self-service file not found");
+        anyhow::bail!("clash-morden-service file not found");
     }
 
     let log_dir = dirs::app_logs_dir()?;
@@ -96,9 +96,9 @@ pub async fn install_service() -> Result<()> {
 #[cfg(target_os = "macos")]
 pub async fn install_service() -> Result<()> {
     let installer_path = dirs::service_bin_path()?;
-    tracing::debug!("clash-verge-self-service file path: {}", installer_path.display());
+    tracing::debug!("clash-morden-service file path: {}", installer_path.display());
     if !installer_path.exists() {
-        anyhow::bail!("clash-verge-self-service file not found");
+        anyhow::bail!("clash-morden-service file not found");
     }
 
     let log_dir = dirs::app_logs_dir()?;
@@ -167,9 +167,9 @@ pub async fn uninstall_service() -> Result<()> {
     use runas::Command as RunasCommand;
 
     let uninstall_path = dirs::service_bin_path()?;
-    tracing::debug!("clash-verge-self-service file path: {}", uninstall_path.display());
+    tracing::debug!("clash-morden-service file path: {}", uninstall_path.display());
     if !uninstall_path.exists() {
-        anyhow::bail!("clash-verge-self-service file not found");
+        anyhow::bail!("clash-morden-service file not found");
     }
 
     let log_dir = dirs::app_logs_dir()?;
@@ -203,9 +203,9 @@ pub async fn uninstall_service() -> Result<()> {
     use users::get_effective_uid;
 
     let uninstaller_path = dirs::service_bin_path()?;
-    tracing::debug!("clash-verge-self-service file path: {}", uninstaller_path.display());
+    tracing::debug!("clash-morden-service file path: {}", uninstaller_path.display());
     if !uninstaller_path.exists() {
-        anyhow::bail!("clash-verge-self-service file not found");
+        anyhow::bail!("clash-morden-service file not found");
     }
 
     let log_dir = dirs::app_logs_dir()?;
@@ -240,9 +240,9 @@ pub async fn uninstall_service() -> Result<()> {
 #[cfg(target_os = "macos")]
 pub async fn uninstall_service() -> Result<()> {
     let uninstaller_path = dirs::service_bin_path()?;
-    tracing::debug!("clash-verge-self-service file path: {}", uninstaller_path.display());
+    tracing::debug!("clash-morden-service file path: {}", uninstaller_path.display());
     if !uninstaller_path.exists() {
-        anyhow::bail!("clash-verge-self-service file not found");
+        anyhow::bail!("clash-morden-service file not found");
     }
 
     let log_dir = dirs::app_logs_dir()?;

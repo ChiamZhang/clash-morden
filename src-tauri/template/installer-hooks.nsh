@@ -27,19 +27,19 @@
 ; ----------------------- 自定义方法 -----------------------
 ; === 检查并停止所有与 Verge 有关的进程 ===
 !macro CheckAllVergeProcesses
-  ; Check if clashmorden-service.exe is running
+  ; Check if clash-morden-service.exe is running
   !if "${INSTALLMODE}" == "currentUser"
-    nsis_tauri_utils::FindProcessCurrentUser "clashmorden-service.exe"
+    nsis_tauri_utils::FindProcessCurrentUser "clash-morden-service.exe"
   !else
-    nsis_tauri_utils::FindProcess "clashmorden-service.exe"
+    nsis_tauri_utils::FindProcess "clash-morden-service.exe"
   !endif
   Pop $R0
   ${If} $R0 = 0
-    DetailPrint "Kill clashmorden-service.exe..."
+    DetailPrint "Kill clash-morden-service.exe..."
     !if "${INSTALLMODE}" == "currentUser"
-      nsis_tauri_utils::KillProcessCurrentUser "clashmorden-service.exe"
+      nsis_tauri_utils::KillProcessCurrentUser "clash-morden-service.exe"
     !else
-      nsis_tauri_utils::KillProcess "clashmorden-service.exe"
+      nsis_tauri_utils::KillProcess "clash-morden-service.exe"
     !endif
   ${EndIf}
 

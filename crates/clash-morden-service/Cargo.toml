@@ -1,5 +1,5 @@
 [package]
-name = "clash-verge-self-service"
+name = "clash-morden-service"
 version = "2.1.0"
 authors = ["Anonymous"]
 license = "GPL-3.0"

@@ -9,10 +9,10 @@ Supports multiple platforms Service.
 clash-verge--self-service install [--log-dir 记录日志的目录] --server-id server-test
 
 # 卸载服务
-clash-verge-self-service uninstall [--log-dir 记录日志的目录]
+clash-morden-service uninstall [--log-dir 记录日志的目录]
 
 # 直接运行 IPC 服务
-clash-verge-self-service --server-id server-test
+clash-morden-service --server-id server-test
 ```
 
 ### 测试 IPC 服务 API 接口

@@ -102,28 +102,49 @@ export const TestItem = (props: Props) => {
             cursor: "move",
           }}>
           {icon && icon.trim() !== "" ? (
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <Box
+              sx={{
+                width: 40,
+                height: 40,
+                mx: "auto",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                overflow: "hidden",
+                // Keep every card's icon slot identical. `contain` handles
+                // both tiny icons and wide/tall non-square images without
+                // changing the card height or distorting the artwork.
+                "& img": {
+                  display: "block",
+                  width: "40px",
+                  height: "40px",
+                  objectFit: "contain",
+                },
+              }}>
               {icon.trim().startsWith("http") && (
                 <img
                   alt={getFileName(icon)}
                   src={iconCachePath === "" ? icon : iconCachePath}
-                  height="40px"
                 />
               )}
               {icon.trim().startsWith("data") && (
-                <img alt={getFileName(icon)} src={icon} height="40px" />
+                <img alt={getFileName(icon)} src={icon} />
               )}
               {icon.trim().startsWith("<svg") && (
-                <img
-                  alt={getFileName(icon)}
-                  src={encodeSvgDataUri(icon)}
-                  height="40px"
-                />
+                <img alt={getFileName(icon)} src={encodeSvgDataUri(icon)} />
               )}
             </Box>
           ) : (
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
-              <LanguageTwoTone sx={{ height: "40px" }} fontSize="large" />
+            <Box
+              sx={{
+                width: 40,
+                height: 40,
+                mx: "auto",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}>
+              <LanguageTwoTone sx={{ width: 40, height: 40 }} />
             </Box>
           )}
 

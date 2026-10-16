@@ -297,7 +297,7 @@ pub fn create_window_with_route(route: Option<&str>) {
         .title("ClashMorden")
         .fullscreen(false)
         .maximized(verge.window_is_maximized.unwrap_or(false))
-        .min_inner_size(950.0, 550.0)
+        .min_inner_size(800.0, 580.0)
         .initialization_script(FRONTEND_READY_SCRIPT)
         .general_autofill_enabled(false);
 
@@ -311,8 +311,8 @@ pub fn create_window_with_route(route: Option<&str>) {
         Some(size_pos) if size_pos.len() == 4 => {
             let size = (size_pos[0], size_pos[1]);
             let pos = (size_pos[2], size_pos[3]);
-            let w = size.0.clamp(950.0, f64::INFINITY);
-            let h = size.1.clamp(550.0, f64::INFINITY);
+            let w = size.0.clamp(800.0, f64::INFINITY);
+            let h = size.1.clamp(580.0, f64::INFINITY);
             builder = builder.inner_size(w, h).position(pos.0, pos.1);
         }
         _ => {

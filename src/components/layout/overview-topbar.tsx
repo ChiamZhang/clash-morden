@@ -76,6 +76,7 @@ export const OverviewTopbar = ({
   const { clashInfo, patchInfo, mutateInfo } = useClashInfo();
   const { serviceStatus } = useService();
   const [serviceDialogOpen, setServiceDialogOpen] = useState(false);
+  const [coreDialogOpen, setCoreDialogOpen] = useState(false);
   const patchVerge = useVergeStore((s) => s.patchVerge);
   const enableSystemProxy = useVergeStore(
     (s) => s.verge.enable_system_proxy ?? false,
@@ -141,28 +142,26 @@ export const OverviewTopbar = ({
           color: coreStatusLoading
             ? "text.secondary"
             : !coreInstalled
-            ? "warning.main"
-            : coreRunning
-              ? "success.main"
-              : "text.secondary",
+              ? "warning.main"
+              : coreRunning
+                ? "success.main"
+                : "text.secondary",
           fontSize: 12,
           fontWeight: 600,
           flexShrink: 0,
-          cursor:
-            !coreInstalled && !coreStatusLoading ? "pointer" : "default",
+          cursor: !coreInstalled && !coreStatusLoading ? "pointer" : "default",
         }}
         title={t(
           coreStatusLoading
             ? "pages.home.topbar.coreChecking"
             : !coreInstalled
-            ? "pages.home.topbar.coreMissing"
-            : coreRunning
-              ? "pages.home.topbar.coreRunning"
-              : "pages.home.topbar.coreStopped",
+              ? "pages.home.topbar.coreMissing"
+              : coreRunning
+                ? "pages.home.topbar.coreRunning"
+                : "pages.home.topbar.coreStopped",
         )}
         onClick={() => {
-          if (!coreInstalled && !coreStatusLoading)
-            void navigate({ to: "/kernel", search: { tab: "general" } });
+          if (!coreInstalled && !coreStatusLoading) setCoreDialogOpen(true);
         }}
         onKeyDown={(event) => {
           if (
@@ -171,7 +170,7 @@ export const OverviewTopbar = ({
             (event.key === "Enter" || event.key === " ")
           ) {
             event.preventDefault();
-            void navigate({ to: "/kernel", search: { tab: "general" } });
+            setCoreDialogOpen(true);
           }
         }}
         role={!coreInstalled && !coreStatusLoading ? "button" : undefined}
@@ -186,10 +185,10 @@ export const OverviewTopbar = ({
             coreStatusLoading
               ? "pages.home.topbar.coreChecking"
               : !coreInstalled
-              ? "pages.home.topbar.coreMissing"
-              : coreRunning
-                ? "pages.home.topbar.coreRunning"
-                : "pages.home.topbar.coreStopped",
+                ? "pages.home.topbar.coreMissing"
+                : coreRunning
+                  ? "pages.home.topbar.coreRunning"
+                  : "pages.home.topbar.coreStopped",
           )}
         </span>
       </Box>
@@ -276,6 +275,18 @@ export const OverviewTopbar = ({
         onCancel={() => setServiceDialogOpen(false)}
         onClose={() => setServiceDialogOpen(false)}>
         {t("pages.home.topbar.tunRequiresService")}
+      </BaseDialog>
+
+      <BaseDialog
+        open={coreDialogOpen}
+        title={t("pages.home.topbar.coreMissing")}
+        onOk={() => {
+          setCoreDialogOpen(false);
+          void navigate({ to: "/kernel", search: { tab: "general" } });
+        }}
+        onCancel={() => setCoreDialogOpen(false)}
+        onClose={() => setCoreDialogOpen(false)}>
+        {t("pages.home.topbar.coreMissing")}
       </BaseDialog>
     </Box>
   );

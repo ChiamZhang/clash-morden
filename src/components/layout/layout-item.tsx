@@ -90,12 +90,12 @@ export const LayoutItem = (props: Props) => {
               ? "1px 0"
               : "4px 0",
           height: sidebarCollapsed
-            ? "46px"
+            ? "40px"
             : sidebarLeftAligned
               ? "46px"
               : "60px",
           minHeight: sidebarCollapsed
-            ? "46px"
+            ? "40px"
             : sidebarLeftAligned
               ? "46px"
               : "60px",

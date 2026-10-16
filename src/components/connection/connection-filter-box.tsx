@@ -370,6 +370,12 @@ export const ConnectionFilterBox = ({
               boxShadow: (theme: Theme) =>
                 `0 0 0 1px ${theme.palette.primary.main}`,
             },
+            // The global interface style adds a focus outline to every
+            // InputBase. This search control already has its own focus ring;
+            // suppress the nested one so it does not render two active boxes.
+            "& .MuiInputBase-root:focus-within": {
+              outline: "none !important",
+            },
           }}>
           <InputAdornment position="start" sx={{ mr: 0, flexShrink: 0 }}>
             <SearchRounded fontSize="small" color="action" />

@@ -29,8 +29,8 @@ export const LogoTitle = ({
   return (
     <div
       className={cn("relative box-border flex w-full shrink-0 grow-0 pt-2", {
-        "pb-2": sidebarCollapsed,
-        "pt-4": isMacOS,
+        "h-2 p-0": sidebarCollapsed,
+        "pt-4": isMacOS && !sidebarCollapsed,
       })}>
       <AnimatePresence initial={false}>
         {!sidebarCollapsed && (

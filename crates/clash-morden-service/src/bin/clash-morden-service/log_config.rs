@@ -1,6 +1,6 @@
 use std::{fs, path::PathBuf, sync::Arc};
 
-use clash_verge_self_service::{Result, ServiceError};
+use clash_morden_service::{Result, ServiceError};
 use log::LevelFilter;
 use log4rs::{
     Config, Handle,

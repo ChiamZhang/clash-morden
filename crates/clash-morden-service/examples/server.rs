@@ -1,4 +1,4 @@
-use clash_verge_self_service::Result;
+use clash_morden_service::Result;
 use log4rs::{
     append::console::ConsoleAppender,
     config::{Appender, Logger, Root},
@@ -35,6 +35,6 @@ async fn main() -> Result<()> {
     let _handle = init_log();
 
     let server_id = "hello-secured-ipc-dev";
-    clash_verge_self_service::Server::run(server_id, Some(clash_verge_self_service::DEFAULT_PSK)).await?;
+    clash_morden_service::Server::run(server_id, Some(clash_morden_service::DEFAULT_PSK)).await?;
     Ok(())
 }

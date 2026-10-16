@@ -51,17 +51,17 @@ pub fn my_service_main(_arguments: Vec<std::ffi::OsString>) {
     if let Ok(rt) = tokio::runtime::Runtime::new() {
         let server_id = SERVER_ID.get().and_then(|id| id.clone()).unwrap_or_else(|| {
             log::error!("failed to get server id");
-            clash_verge_self_service::DEFAULT_SERVER_ID.to_string()
+            clash_morden_service::DEFAULT_SERVER_ID.to_string()
         });
         let psk =
-            option_env!("CLASH_VERGE_SELF_SERVICE_PSK").map_or(clash_verge_self_service::DEFAULT_PSK, |v| v.as_bytes());
+            option_env!("CLASH_VERGE_SELF_SERVICE_PSK").map_or(clash_morden_service::DEFAULT_PSK, |v| v.as_bytes());
         rt.block_on(async move {
-            let _ = clash_verge_self_service::Server::run(server_id, Some(psk)).await;
+            let _ = clash_morden_service::Server::run(server_id, Some(psk)).await;
         });
     }
 }
 
-fn main() -> clash_verge_self_service::Result<()> {
+fn main() -> clash_morden_service::Result<()> {
     let cli = Cli::parse();
     match cli.command {
         Some(Commands::Install { log_dir, server_id }) => {
@@ -79,19 +79,19 @@ fn main() -> clash_verge_self_service::Result<()> {
             #[cfg(unix)]
             {
                 let rt = tokio::runtime::Runtime::new()?;
-                let server_id = server_id.unwrap_or(clash_verge_self_service::DEFAULT_SERVER_ID.to_string());
+                let server_id = server_id.unwrap_or(clash_morden_service::DEFAULT_SERVER_ID.to_string());
                 let psk = option_env!("CLASH_VERGE_SELF_SERVICE_PSK")
-                    .map_or(clash_verge_self_service::DEFAULT_PSK, |v| v.as_bytes());
+                    .map_or(clash_morden_service::DEFAULT_PSK, |v| v.as_bytes());
                 rt.block_on(async move {
-                    let _ = clash_verge_self_service::Server::run(server_id, Some(psk)).await;
+                    let _ = clash_morden_service::Server::run(server_id, Some(psk)).await;
                 });
             }
             #[cfg(windows)]
             {
                 SERVER_ID
                     .set(server_id)
-                    .map_err(|_| clash_verge_self_service::ServiceError::General("failed to set server id".into()))?;
-                service_dispatcher::start(clash_verge_self_service::SERVICE_NAME, ffi_service_main)?;
+                    .map_err(|_| clash_morden_service::ServiceError::General("failed to set server id".into()))?;
+                service_dispatcher::start(clash_morden_service::SERVICE_NAME, ffi_service_main)?;
             }
         }
     }

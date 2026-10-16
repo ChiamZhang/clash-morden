@@ -1,6 +1,6 @@
 #[cfg(target_os = "macos")]
-use clash_verge_self_service::MACOS_HELPER_ID;
-use clash_verge_self_service::{DEFAULT_SERVER_ID, Result, ServiceError};
+use clash_morden_service::MACOS_HELPER_ID;
+use clash_morden_service::{DEFAULT_SERVER_ID, Result, ServiceError};
 
 #[cfg(not(any(windows, target_os = "linux", target_os = "macos")))]
 pub fn process(_server_id: Option<String>) -> Result<()> {
@@ -152,7 +152,7 @@ fn command_output_detail(output: &std::process::Output) -> String {
 pub fn process(server_id: Option<String>) -> Result<()> {
     use std::{fs::File, io::Write, path::Path};
 
-    use clash_verge_self_service::SERVICE_NAME;
+    use clash_morden_service::SERVICE_NAME;
 
     let server_id = server_id.unwrap_or(DEFAULT_SERVER_ID.to_string());
 
@@ -160,7 +160,7 @@ pub fn process(server_id: Option<String>) -> Result<()> {
 
     let service_binary_path = std::env::current_exe()
         .unwrap()
-        .with_file_name(clash_verge_self_service::SERVICE_EXECUTABLE);
+        .with_file_name(clash_morden_service::SERVICE_EXECUTABLE);
     if !service_binary_path.exists() {
         log::error!("The clash-morden-service binary not found.");
         std::process::exit(2);
@@ -239,7 +239,7 @@ pub fn process(server_id: Option<String>) -> Result<()> {
 pub fn process(server_id: Option<String>) -> Result<()> {
     use std::ffi::{OsStr, OsString};
 
-    use clash_verge_self_service::SERVICE_NAME;
+    use clash_morden_service::SERVICE_NAME;
     use windows_service::{
         service::{ServiceAccess, ServiceErrorControl, ServiceInfo, ServiceStartType, ServiceState, ServiceType},
         service_manager::{ServiceManager, ServiceManagerAccess},
@@ -275,7 +275,7 @@ pub fn process(server_id: Option<String>) -> Result<()> {
 
     let service_binary_path = std::env::current_exe()
         .unwrap()
-        .with_file_name(clash_verge_self_service::SERVICE_EXECUTABLE);
+        .with_file_name(clash_morden_service::SERVICE_EXECUTABLE);
 
     if !service_binary_path.exists() {
         log::error!("clash-morden-service.exe not found");

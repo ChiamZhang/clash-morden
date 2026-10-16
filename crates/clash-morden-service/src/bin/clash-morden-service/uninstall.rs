@@ -1,6 +1,6 @@
 #[cfg(target_os = "macos")]
-use clash_verge_self_service::MACOS_HELPER_ID;
-use clash_verge_self_service::{Result, ServiceError};
+use clash_morden_service::MACOS_HELPER_ID;
+use clash_morden_service::{Result, ServiceError};
 
 #[cfg(not(any(windows, target_os = "linux", target_os = "macos")))]
 pub fn process() -> Result<()> {
@@ -51,7 +51,7 @@ pub fn process() -> Result<()> {
 pub fn process() -> Result<()> {
     use std::{fs::remove_file, path::Path};
 
-    use clash_verge_self_service::SERVICE_NAME;
+    use clash_morden_service::SERVICE_NAME;
 
     log::debug!("Start uninstall ClashMorden Service");
 
@@ -89,7 +89,7 @@ pub fn process() -> Result<()> {
 pub fn process() -> Result<()> {
     use std::{thread, time::Duration};
 
-    use clash_verge_self_service::SERVICE_NAME;
+    use clash_morden_service::SERVICE_NAME;
     use windows_service::{
         service::{ServiceAccess, ServiceState},
         service_manager::{ServiceManager, ServiceManagerAccess},

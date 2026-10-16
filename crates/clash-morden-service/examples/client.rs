@@ -4,7 +4,7 @@ use std::{
     time::{Duration, Instant},
 };
 
-use clash_verge_self_service::{
+use clash_morden_service::{
     Result,
     model::{ClashRunInfo, ServiceVersionInfo, SocketCommand, StartBody},
 };
@@ -45,8 +45,7 @@ async fn main() -> Result<()> {
 
     let server_id = "hello-secured-ipc-dev";
 
-    let mut client =
-        clash_verge_self_service::Client::connect(server_id, Some(clash_verge_self_service::DEFAULT_PSK)).await?;
+    let mut client = clash_morden_service::Client::connect(server_id, Some(clash_morden_service::DEFAULT_PSK)).await?;
     // check version
     let now = Instant::now();
     for _ in 0..=2000 {
@@ -71,7 +70,7 @@ async fn main() -> Result<()> {
     Ok(())
 }
 
-async fn start_core(client: &mut clash_verge_self_service::Client) -> Result<()> {
+async fn start_core(client: &mut clash_morden_service::Client) -> Result<()> {
     let curr_dir = std::env::current_dir()?;
     let start_core = StartBody {
         core_type: Some("mihomo".into()),
@@ -93,31 +92,31 @@ async fn start_core(client: &mut clash_verge_self_service::Client) -> Result<()>
     Ok(())
 }
 
-async fn stop_core(client: &mut clash_verge_self_service::Client) -> Result<()> {
+async fn stop_core(client: &mut clash_morden_service::Client) -> Result<()> {
     let msg = client.send::<()>(SocketCommand::StopClash).await?;
     println!("stop clash: {:?}", msg);
     Ok(())
 }
 
-async fn get_clash(client: &mut clash_verge_self_service::Client) -> Result<()> {
+async fn get_clash(client: &mut clash_morden_service::Client) -> Result<()> {
     let msg = client.send::<ClashRunInfo>(SocketCommand::GetClash).await?;
     println!("get clash: {:#?}", msg);
     Ok(())
 }
 
-async fn get_logs(client: &mut clash_verge_self_service::Client) -> Result<()> {
+async fn get_logs(client: &mut clash_morden_service::Client) -> Result<()> {
     let msg = client.send::<Vec<String>>(SocketCommand::GetLogs).await?;
     println!("get logs: {:?}", msg);
     Ok(())
 }
 
-async fn get_version(client: &mut clash_verge_self_service::Client) -> Result<()> {
+async fn get_version(client: &mut clash_morden_service::Client) -> Result<()> {
     let msg = client.send::<ServiceVersionInfo>(SocketCommand::GetVersion).await?;
     println!("get version: {:?}", msg);
     Ok(())
 }
 
-async fn stop_service(client: &mut clash_verge_self_service::Client) -> Result<()> {
+async fn stop_service(client: &mut clash_morden_service::Client) -> Result<()> {
     client.send::<()>(SocketCommand::StopService).await?;
     Ok(())
 }

@@ -57,7 +57,7 @@
     "copyright": "GNU General Public License v3.0",
     "category": "Utility",
     "shortDescription": "A Mihomo GUI based on tauri.",
-    "createUpdaterArtifacts": true,
+    "createUpdaterArtifacts": false,
     "targets": ["app", "dmg", "nsis", "deb", "rpm"],
     "macOS": {
       "dmg": {
@@ -125,13 +125,6 @@
       "desktop": {
         "schemes": ["clash"]
       }
-    },
-    "updater": {
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDcwNzM5MjRBQjQ0QUM5NzMKUldSenlVcTBTcEp6Y0UzYVJ4TmxuU04rdVhvTHVqQW9LeWZFQ2tKSHN4MjE1SXAxUFhEQi9WcFMK",
-      "endpoints": [
-        "https://gh-proxy.org/https://github.com/null-route-blackhole/clash-morden/releases/download/updater/update-proxy.json",
-        "https://github.com/null-route-blackhole/clash-morden/releases/download/updater/update.json"
-      ]
     }
   }
 }

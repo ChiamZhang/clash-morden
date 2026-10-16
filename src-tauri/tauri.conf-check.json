@@ -124,13 +124,6 @@
       "desktop": {
         "schemes": ["clash"]
       }
-    },
-    "updater": {
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEY5REVGQ0Q1MUQ2NDhCNjYKUldSbWkyUWQxZnplK1N3aUUxbzM0TXd3NVlqbE1obXdSaVZHQ3JSTjgwUzJaZjQ1L0FFQWk0a0sK",
-      "endpoints": [
-        "https://ghproxy.fangkuai.fun/https://github.com/null-route-blackhole/clash-morden/releases/download/updater/update-proxy.json",
-        "https://github.com/null-route-blackhole/clash-morden/releases/download/updater/update.json"
-      ]
     }
   }
 }

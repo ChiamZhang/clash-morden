@@ -14,8 +14,6 @@ import { debounce } from "lodash-es";
 import { useEffect, useMemo, useRef } from "react";
 
 import { getOverviewTrafficColors } from "@/components/home/ant-colors";
-import { useConnectionData } from "@/hooks/use-connection-data";
-import { useLogData } from "@/hooks/use-log-data";
 import { useMemoryData } from "@/hooks/use-memory-data";
 import { useTrafficData } from "@/hooks/use-traffic-data";
 import { useVisibility } from "@/hooks/use-visibility";
@@ -56,8 +54,6 @@ export const LayoutTraffic = () => {
   const {
     response: { data: memory = { inuse: 0 } },
   } = useMemoryData();
-  useLogData();
-  useConnectionData();
 
   const trafficRef = useRef<TrafficRef>(null);
 

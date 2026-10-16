@@ -100,7 +100,7 @@ export const TrafficGraph = forwardRef<TrafficRef, TrafficGraphProps>(
     }, []);
 
     useEffect(() => {
-      let raf = 0;
+      let timer: ReturnType<typeof setTimeout> | undefined;
       const canvas = canvasRef.current;
       if (!canvas) return;
 
@@ -189,7 +189,10 @@ export const TrafficGraph = forwardRef<TrafficRef, TrafficGraphProps>(
         const now = Date.now();
         const diff = now - lastTime;
         if (diff < FRAME_INTERVAL_MS) {
-          raf = requestAnimationFrame(() => drawGraph(lastTime));
+          timer = setTimeout(
+            () => drawGraph(lastTime),
+            FRAME_INTERVAL_MS - diff,
+          );
           return;
         }
         const temp = Math.min((diff / 1000) * dx + countRef.current, dx);
@@ -234,13 +237,13 @@ export const TrafficGraph = forwardRef<TrafficRef, TrafficGraphProps>(
         context.stroke();
         context.closePath();
 
-        raf = requestAnimationFrame(() => drawGraph(now));
+        timer = setTimeout(() => drawGraph(now), FRAME_INTERVAL_MS);
       };
 
       drawGraph(Date.now());
 
       return () => {
-        cancelAnimationFrame(raf);
+        if (timer) clearTimeout(timer);
       };
     }, [palette, size, colors]);
 

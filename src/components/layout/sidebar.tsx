@@ -37,28 +37,6 @@ export const Sidebar = (props: Props) => {
     setPendingTo(null);
   }, [pathname]);
 
-  useEffect(() => {
-    const preloadRoutes = () => {
-      routes.forEach((route) => {
-        void router.preloadRoute({ to: route.path });
-      });
-    };
-    const windowWithIdleCallback = window as Window & {
-      requestIdleCallback?: (callback: IdleRequestCallback) => number;
-      cancelIdleCallback?: (handle: number) => void;
-    };
-
-    if (windowWithIdleCallback.requestIdleCallback) {
-      const idleId = windowWithIdleCallback.requestIdleCallback(() => {
-        preloadRoutes();
-      });
-      return () => windowWithIdleCallback.cancelIdleCallback?.(idleId);
-    }
-
-    const timeoutId = globalThis.setTimeout(preloadRoutes, 300);
-    return () => globalThis.clearTimeout(timeoutId);
-  }, [router]);
-
   return (
     <Paper
       component="nav"

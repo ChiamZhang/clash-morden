@@ -1030,7 +1030,8 @@
       "topbar": {
         "coreRunning": "Core Running",
         "coreStopped": "Core Stopped",
-        "coreMissing": "No core installed. Install one in Core Settings before starting.",
+        "coreMissing": "Core not installed",
+        "coreMissingBody": "No core installed. Install one in Core Settings before starting.",
         "coreChecking": "Checking core…",
         "coreSwitching": "Working…",
         "tunRequiresService": "Tun mode requires service mode. Please install and start the service from the Core General page first."

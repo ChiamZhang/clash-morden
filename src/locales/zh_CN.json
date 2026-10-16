@@ -1030,7 +1030,8 @@
       "topbar": {
         "coreRunning": "内核运行中",
         "coreStopped": "内核已停止",
-        "coreMissing": "尚未安装内核，请先在内核设置中安装后再启动",
+        "coreMissing": "内核未安装",
+        "coreMissingBody": "尚未安装内核，请先在内核设置中安装后再启动",
         "coreChecking": "正在检测内核…",
         "coreSwitching": "内核启停中…",
         "tunRequiresService": "Tun 模式需要服务模式，请在内核的通用页面中安装并启动服务模式后再开启。"

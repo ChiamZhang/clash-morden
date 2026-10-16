@@ -286,7 +286,7 @@ export const OverviewTopbar = ({
         }}
         onCancel={() => setCoreDialogOpen(false)}
         onClose={() => setCoreDialogOpen(false)}>
-        {t("pages.home.topbar.coreMissing")}
+        {t("pages.home.topbar.coreMissingBody")}
       </BaseDialog>
     </Box>
   );

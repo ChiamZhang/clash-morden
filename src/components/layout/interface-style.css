@@ -566,17 +566,93 @@ html[data-interface-style="glass"] .MuiCard-root,
 html[data-interface-style="glass"] .MuiDialog-paper,
 html[data-interface-style="glass"] .MuiMenu-paper,
 html[data-interface-style="glass"] .MuiPopover-paper {
-  background: color-mix(in srgb, var(--ui-paper) 56%, transparent);
-  backdrop-filter: blur(24px) saturate(145%);
-  border-color: color-mix(in srgb, var(--ui-text) 9%, transparent);
+  background: color-mix(in srgb, var(--ui-paper) 34%, transparent);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  border-color: color-mix(in srgb, var(--ui-text) 16%, transparent);
   box-shadow:
-    inset 0 1px 0 #ffffff38,
-    0 6px 24px #0b22390a;
+    inset 0 1px 0 #ffffff55,
+    inset 0 0 0 1px #ffffff12,
+    0 10px 32px #0b22391a;
 }
 
 html[data-interface-style="glass"] .MuiOutlinedInput-root,
 html[data-interface-style="glass"] .MuiButton-outlined {
-  background: color-mix(in srgb, var(--ui-fill) 65%, transparent);
+  background: color-mix(in srgb, var(--ui-fill) 38%, transparent);
+  backdrop-filter: blur(18px) saturate(165%);
+  -webkit-backdrop-filter: blur(18px) saturate(165%);
+}
+
+/* Liquid Glass 3.0: layered translucency, refraction-like highlights and
+   stronger backdrop separation inspired by liquid-glass-react. */
+html[data-interface-style="glass3"] #root {
+  background:
+    radial-gradient(
+      90% 70% at 8% 0%,
+      color-mix(in srgb, var(--ui-accent) 18%, transparent),
+      transparent 68%
+    ),
+    radial-gradient(
+      70% 80% at 100% 100%,
+      color-mix(in srgb, var(--ui-accent) 12%, transparent),
+      transparent 70%
+    ),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--ui-paper) 72%, transparent),
+      transparent 55%
+    );
+}
+
+html[data-interface-style="glass3"] .interface-card,
+html[data-interface-style="glass3"] .MuiCard-root,
+html[data-interface-style="glass3"] .MuiDialog-paper,
+html[data-interface-style="glass3"] .MuiMenu-paper,
+html[data-interface-style="glass3"] .MuiPopover-paper {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, #ffffff1c, transparent 38%),
+    color-mix(in srgb, var(--ui-paper) 24%, transparent);
+  backdrop-filter: blur(34px) saturate(190%) contrast(108%);
+  -webkit-backdrop-filter: blur(34px) saturate(190%) contrast(108%);
+  border: 1px solid color-mix(in srgb, var(--ui-text) 18%, transparent);
+  box-shadow:
+    inset 0 1px 0 #ffffff70,
+    inset 1px 0 0 #ffffff26,
+    inset 0 -1px 0 #00000012,
+    0 14px 40px #07111f24;
+}
+
+html[data-interface-style="glass3"] .interface-card::before,
+html[data-interface-style="glass3"] .MuiCard-root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    #ffffff22,
+    transparent 24%,
+    transparent 72%,
+    #ffffff0c
+  );
+  mix-blend-mode: screen;
+}
+
+html[data-interface-style="glass3"] .MuiOutlinedInput-root,
+html[data-interface-style="glass3"] .MuiButton-outlined,
+html[data-interface-style="glass3"] .MuiButtonBase-root[role="combobox"] {
+  background: color-mix(in srgb, var(--ui-paper) 20%, transparent);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-color: color-mix(in srgb, var(--ui-text) 20%, transparent);
+  box-shadow: inset 0 1px 0 #ffffff38;
+}
+
+html[data-interface-style="glass3"] .MuiDrawer-paper,
+html[data-interface-style="glass3"] .MuiPaper-root {
+  background-color: color-mix(in srgb, var(--ui-paper) 28%, transparent);
 }
 
 html[data-interface-style="bold"] .interface-card,

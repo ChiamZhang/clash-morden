@@ -567,6 +567,7 @@
             "outline": "Minimal outline",
             "soft": "Soft layers",
             "glass": "Glass",
+            "glass3": "Liquid Glass 3.0",
             "bold": "Defined structure"
           },
           "title": "Theme Setting",
@@ -1020,7 +1021,7 @@
           "rules": "Frequent rules",
           "hosts": "Popular domains",
           "nodes": "Popular nodes",
-        "targetCountries": "Targets",
+          "targetCountries": "Targets",
           "exitCountries": "Exit countries/regions",
           "processes": "Frequent processes (traffic)",
           "hits": "hits"
@@ -1059,7 +1060,7 @@
       "sync": "Sync",
       "modelSynced": "Model synced; restart the Smart core to load it",
       "smartHint": "Only Smart-capable cores use this model. Sync writes Model.bin in the data directory. Save URL edits; restart the core to load the model.",
-          "coreManagement": "Clash core version management",
+      "coreManagement": "Clash core version management",
       "networkTools": "Network tools and controller",
       "refreshInterfaces": "Current interfaces",
       "tabs": {

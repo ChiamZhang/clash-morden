@@ -566,7 +566,8 @@
             "clash": "Clash 原始",
             "outline": "极简描边",
             "soft": "柔和层次",
-            "glass": "通透玻璃",
+            "glass": "通透玻璃 2.0",
+            "glass3": "通透玻璃 3.0",
             "bold": "鲜明结构"
           },
           "title": "主题设置",
@@ -1059,7 +1060,7 @@
       "sync": "同步",
       "modelSynced": "模型已同步，重新启动 Smart 内核后加载",
       "smartHint": "仅支持 Smart 的内核使用此模型。同步写入数据目录的 Model.bin；修改 URL 后需保存，模型在内核重启后加载。",
-          "coreManagement": "Clash 内核版本管理",
+      "coreManagement": "Clash 内核版本管理",
       "networkTools": "网络工具与控制接口",
       "refreshInterfaces": "当前网卡信息",
       "tabs": {

@@ -16,6 +16,9 @@ export const getInterfacePalette = (
     glass: dark
       ? ["#151923", "#232936", "#91a5ef"]
       : ["#f3f6f9", "#ffffff", "#4d6ad7"],
+    glass3: dark
+      ? ["#101827", "#1c2a3b", "#9bb8ff"]
+      : ["#e8f1f8", "#f8fcff", "#4d75d8"],
     bold: dark
       ? ["#12151a", "#1c1f26", "#bcc5d8"]
       : ["#f4f5f6", "#ffffff", "#343d50"],

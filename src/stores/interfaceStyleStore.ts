@@ -6,6 +6,7 @@ export const INTERFACE_STYLES = [
   "outline",
   "soft",
   "glass",
+  "glass3",
   "bold",
 ] as const;
 export type InterfaceStyle = (typeof INTERFACE_STYLES)[number];

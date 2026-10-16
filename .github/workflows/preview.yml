@@ -95,8 +95,6 @@ jobs:
           - os: windows-latest
             target: x86_64-pc-windows-msvc
           - os: windows-latest
-            target: i686-pc-windows-msvc
-          - os: windows-latest
             target: aarch64-pc-windows-msvc
           - os: macos-latest
             target: aarch64-apple-darwin
@@ -105,11 +103,7 @@ jobs:
           - os: ubuntu-22.04
             target: x86_64-unknown-linux-gnu
           - os: ubuntu-22.04
-            target: i686-unknown-linux-gnu
-          - os: ubuntu-22.04
             target: aarch64-unknown-linux-gnu
-          - os: ubuntu-22.04
-            target: armv7-unknown-linux-gnueabihf
 
     runs-on: ${{ matrix.os }}
     steps:
@@ -220,31 +214,37 @@ jobs:
             mv "$f" "$dest"
           done
 
-      - name: Portable Bundle
-        if: matrix.os != 'macos-latest'
-        run: pnpm portable --target ${{ matrix.target }} --preview --version ${{ needs.prepare.outputs.VERSION }} --no-upload
+      - name: Stage preview packages with platform and architecture
+        shell: bash
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ needs.prepare.outputs.VERSION }}
+          TARGET: ${{ matrix.target }}
+        run: |
+          case "$TARGET" in
+            *windows*) OS=Windows ;;
+            *apple-darwin) OS=Macos ;;
+            *linux*) OS=Linux ;;
+            *) echo "Unsupported target: $TARGET" >&2; exit 1 ;;
+          esac
+          case "$TARGET" in
+            *x86_64*) ARCH=x86_64 ;;
+            *aarch64*) ARCH=aarch64 ;;
+            *) echo "Unsupported architecture: $TARGET" >&2; exit 1 ;;
+          esac
+          mkdir -p release-assets
+          find "target/$TARGET/release/bundle" -type f \
+            \( -name '*.exe' -o -name '*.dmg' -o -name '*.deb' -o -name '*.rpm' \) \
+            -print0 | while IFS= read -r -d '' file; do
+              extension="${file##*.}"
+              cp "$file" "release-assets/ClashMorden_${VERSION}_${OS}_${ARCH}.${extension}"
+            done
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: preview-${{ matrix.target }}
           path: |
-            # windows
-            target/${{ matrix.target }}/release/bundle/**/*.exe
-            target/${{ matrix.target }}/release/bundle/**/*.exe.sig
-            *_portable.zip
-            # macos
-            target/${{ matrix.target }}/release/bundle/**/*.dmg
-            target/${{ matrix.target }}/release/bundle/**/*.app.tar.gz
-            target/${{ matrix.target }}/release/bundle/**/*.app.tar.gz.sig
-            # linux
-            target/${{ matrix.target }}/release/bundle/**/*.deb
-            target/${{ matrix.target }}/release/bundle/**/*.deb.sig
-            target/${{ matrix.target }}/release/bundle/**/*.rpm
-            target/${{ matrix.target }}/release/bundle/**/*.rpm.sig
-            *_portable.tar.gz
+            release-assets/*
           if-no-files-found: ignore
 
   pkgbuild:

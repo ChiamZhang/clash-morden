@@ -124,6 +124,7 @@
       "desktop": {
         "schemes": ["clash"]
       }
-    }
+    },
+    "updater": {}
   }
 }

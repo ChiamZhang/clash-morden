@@ -413,7 +413,7 @@ const HomePage = () => {
                       <Grid
                         key={key}
                         // 保持窄窗口也使用双栏；仅在较宽的 md 断点把单卡行展开。
-                        size={{ xs: 6, sm: 6, md: row.length === 1 ? 12 : 6 }}
+                        size={{ xs: 12, sm: 6, md: row.length === 1 ? 12 : 6 }}
                         sx={{ display: "flex" }}>
                         <SortableItem
                           id={key}

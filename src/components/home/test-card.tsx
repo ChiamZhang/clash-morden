@@ -328,6 +328,15 @@ const TestCardRow = ({
           fontVariantNumeric: "tabular-nums",
         }}>
         {LATENCY_METRICS.map(({ key, color }) => {
+          const metricDelay =
+            key === "max"
+              ? Math.max(...samples)
+              : key === "min"
+                ? Math.min(...samples)
+                : Math.round(
+                    samples.reduce((sum, sample) => sum + sample, 0) /
+                      samples.length,
+                  );
           const value =
             key === "current"
               ? delay === -2
@@ -335,7 +344,7 @@ const TestCardRow = ({
                 : delayManager.formatDelay(delay).replace(/\s*ms$/i, "")
               : samples.length === 0
                 ? "—"
-                : `${key === "max" ? Math.max(...samples) : key === "min" ? Math.min(...samples) : Math.round(samples.reduce((sum, sample) => sum + sample, 0) / samples.length)}`;
+                : delayManager.formatDelay(metricDelay).replace(/\s*ms$/i, "");
           const label = t(`pages.home.components.tests.${key}`);
           return (
             <Tooltip key={key} title={label}>

@@ -103,7 +103,11 @@ const RulesPage = () => {
     await loadPayload();
   }, [fetchRules, loadPayload]);
 
-  useInterval(async () => await fetchRules(), 5000);
+  // Rule statistics are shared by the overview cards; polling every 5 seconds
+  // creates needless /rules requests while the core is unavailable.
+  useInterval(async () => {
+    await fetchRules().catch(() => {});
+  }, 60_000);
 
   return (
     <BasePage

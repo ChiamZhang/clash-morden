@@ -6,7 +6,7 @@
   <img src="./docs/assets/dock.png" alt="ClashMorden" width="220" />
 </p>
 
-<p align="center"><strong>A redesigned desktop UI for managing Mihomo.</strong></p>
+<p align="center"><strong>A redesigned desktop UI for managing Mihomo Core.</strong></p>
 
 ClashMorden is a community-developed interface based on Clash Verge Rev. It keeps the familiar proxy-client workflows and adds a redesigned overview, richer connection insights, and a refreshed visual theme.
 
